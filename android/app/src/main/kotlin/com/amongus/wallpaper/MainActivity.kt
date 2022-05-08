@@ -1,4 +1,4 @@
-package com.example.among_us_wallpapers
+package com.amongus.wallpaper
 
 import io.flutter.embedding.android.FlutterActivity
 
