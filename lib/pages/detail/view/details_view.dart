@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
+import '../../../app/ad_manager/ad_manager.dart';
+import '../../../components/error_text.dart';
 import '../../../components/image_view_widget.dart';
 import '../../full_screen_image/view/full_screen_image_view.dart';
 import '../view_model/details_view_model.dart';
@@ -41,13 +44,18 @@ class _DetailsViewState extends State<DetailsView> {
       future: future,
       builder: (context, snapshot) {
         if (snapshot.hasError) {
-          return const Center(child: Text('Error'));
+          return const ErrorText();
         }
-        /* if (snapshot.connectionState == ConnectionState.done) {
-          return const Center(child: Text('Categories not found'));
-        } */
         if (snapshot.connectionState == ConnectionState.done) {
-          return listViewBuilder();
+          return Column(
+            children: [
+              Flexible(flex: 9, child: listViewBuilder()),
+              Flexible(
+                flex: 1,
+                child: AdWidget(ad: AdManager.inCategoryBannerAd),
+              ),
+            ],
+          );
         }
         return const Center(child: CircularProgressIndicator());
       },
